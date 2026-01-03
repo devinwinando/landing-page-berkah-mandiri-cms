@@ -1,25 +1,23 @@
 'use strict';
 
 /**
- *  article controller
+ * product controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::article.article', ({ strapi }) => ({
+module.exports = createCoreController('api::product.product', ({ strapi }) => ({
   async find(ctx) {
-    // Automatically populate relations with localization
+    // Automatically populate with localization
     ctx.query = {
       ...ctx.query,
       populate: {
-        author: true,
-        category: true,
-        cover: true,
-        blocks: true,
+        image: true,
         localizations: {
-          fields: ['locale', 'title', 'slug'],
+          fields: ['locale', 'name', 'slug', 'shortDescription'],
         },
       },
+      sort: ['order:asc', 'createdAt:desc'],
     };
 
     const { data, meta } = await super.find(ctx);
@@ -27,16 +25,13 @@ module.exports = createCoreController('api::article.article', ({ strapi }) => ({
   },
 
   async findOne(ctx) {
-    // Automatically populate relations with localization
+    // Automatically populate with localization
     ctx.query = {
       ...ctx.query,
       populate: {
-        author: true,
-        category: true,
-        cover: true,
-        blocks: true,
+        image: true,
         localizations: {
-          fields: ['locale', 'title', 'slug'],
+          fields: ['locale', 'name', 'slug', 'description', 'specifications'],
         },
       },
     };

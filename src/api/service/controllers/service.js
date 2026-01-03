@@ -1,21 +1,22 @@
 'use strict';
 
 /**
- *  category controller
+ * service controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::category.category', ({ strapi }) => ({
+module.exports = createCoreController('api::service.service', ({ strapi }) => ({
   async find(ctx) {
-    // Automatically populate localizations
+    // Auto-populate relations
     ctx.query = {
       ...ctx.query,
       populate: {
-        localizations: {
-          fields: ['locale', 'name', 'slug'],
-        },
+        image: true,
+        icon: true,
+        localizations: true,
       },
+      sort: ['order:asc'],
     };
 
     const { data, meta } = await super.find(ctx);
@@ -23,13 +24,13 @@ module.exports = createCoreController('api::category.category', ({ strapi }) => 
   },
 
   async findOne(ctx) {
-    // Automatically populate localizations
+    // Auto-populate relations
     ctx.query = {
       ...ctx.query,
       populate: {
-        localizations: {
-          fields: ['locale', 'name', 'slug'],
-        },
+        image: true,
+        icon: true,
+        localizations: true,
       },
     };
 
