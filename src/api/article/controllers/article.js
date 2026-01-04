@@ -12,10 +12,14 @@ module.exports = createCoreController('api::article.article', ({ strapi }) => ({
     ctx.query = {
       ...ctx.query,
       populate: {
-        author: true,
-        category: true,
         cover: true,
         blocks: true,
+        createdBy: {
+          fields: ['id', 'username', 'firstname', 'lastname'],
+        },
+        updatedBy: {
+          fields: ['id', 'username', 'firstname', 'lastname'],
+        },
         localizations: {
           fields: ['locale', 'title', 'slug'],
         },
@@ -31,10 +35,14 @@ module.exports = createCoreController('api::article.article', ({ strapi }) => ({
     ctx.query = {
       ...ctx.query,
       populate: {
-        author: true,
-        category: true,
         cover: true,
         blocks: true,
+        createdBy: {
+          fields: ['id', 'username', 'firstname', 'lastname'],
+        },
+        updatedBy: {
+          fields: ['id', 'username', 'firstname', 'lastname'],
+        },
         localizations: {
           fields: ['locale', 'title', 'slug'],
         },
